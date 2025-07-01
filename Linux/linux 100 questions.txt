@@ -1,0 +1,289 @@
+Set 1: Installation
+Which tool is commonly used to install CentOS or RHEL?
+a) apt-get
+b) yum
+c) pacman
+d) dpkg
+Answer: b) yum
+
+Which file contains the boot loader configuration in a standard RHEL installation?
+a) /etc/grub.conf
+b) /boot/grub2/grub.cfg
+c) /etc/fstab
+d) /etc/inittab
+Answer: b) /boot/grub2/grub.cfg
+
+What is the default installation directory for applications installed from RPM packages?
+a) /var
+b) /etc
+c) /usr/local
+d) /opt
+Answer: c) /usr/local
+
+Which command can be used to install software during the CentOS installation process?
+a) dnf
+b) yum install
+c) rpm -i
+d) kickstart
+Answer: d) kickstart
+
+Set 2: Booting Process
+Which file is used by the Linux kernel during the boot process to mount file systems?
+a) /etc/fstab
+b) /boot/grub/grub.conf
+c) /etc/inittab
+d) /etc/rc.local
+Answer: a) /etc/fstab
+
+Which of the following is the first process started by the Linux kernel at boot time?
+a) init
+b) systemd
+c) bash
+d) cron
+Answer: b) systemd
+
+What command is used to change the runlevel in CentOS/RHEL?
+a) init
+b) runlevel
+c) systemctl
+d) telinit
+Answer: c) systemctl
+
+In RHEL/CentOS, the bootloader used by default is called?
+a) LILO
+b) GRUB2
+c) syslinux
+d) Bootmgr
+Answer: b) GRUB2
+
+Set 3: Linux Usage Basics
+Which command is used to display the current working directory?
+a) pwd
+b) whoami
+c) ls
+d) cd
+Answer: a) pwd
+
+How can you list hidden files in a directory using the ls command?
+a) ls -a
+b) ls -l
+c) ls -h
+d) ls -r
+Answer: a) ls -a
+
+What does the cd command do?
+a) Changes the directory
+b) Copies files
+c) Creates a directory
+d) Deletes files
+Answer: a) Changes the directory
+
+Which of the following commands displays a calendar?
+a) cal
+b) date
+c) time
+d) cat
+Answer: a) cal
+
+Set 4: Linux File System
+Which of the following directories is used to store system-wide configuration files?
+a) /bin
+b) /etc
+c) /usr
+d) /var
+Answer: b) /etc
+
+What command is used to display the file system disk space usage?
+a) df
+b) du
+c) free
+d) fdisk
+Answer: a) df
+
+What is the default file system used in CentOS 7 and RHEL 7?
+a) ext3
+b) ext4
+c) xfs
+d) btrfs
+Answer: c) xfs
+
+Which command is used to check a file's type?
+a) file
+b) type
+c) stat
+d) check
+Answer: a) file
+
+Set 5: Package Management
+Which of the following is the package manager used in RHEL 8?
+a) apt
+b) rpm
+c) yum
+d) dnf
+Answer: d) dnf
+
+What command is used to install a package using the rpm tool?
+a) rpm -i
+b) rpm -install
+c) rpm -add
+d) rpm --install
+Answer: a) rpm -i
+
+Which command lists all installed RPM packages?
+a) yum list installed
+b) rpm -qa
+c) dnf list installed
+d) apt list --installed
+Answer: b) rpm -qa
+
+How do you remove a package using yum?
+a) yum erase
+b) yum remove
+c) yum uninstall
+d) yum delete
+Answer: b) yum remove
+
+Set 6: Standard I / O Pipes
+Which symbol is used to redirect output to a file in Linux?
+a) |
+b) &
+c) >
+d) #
+Answer: c) >
+
+How can you redirect the output of one command to the input of another?
+a) Using the pipe |
+b) Using >
+c) Using &
+d) Using #
+Answer: a) Using the pipe |
+
+What is the purpose of the tee command?
+a) Redirect input to a file
+b) Split output to both a file and display
+c) Append to a file
+d) Concatenate two files
+Answer: b) Split output to both a file and display
+
+Which command concatenates files and outputs to the standard output?
+a) cat
+b) tee
+c) more
+d) tail
+Answer: a) cat
+
+Set 7: Basic System Configuration Tools
+Which tool is commonly used to manage services in RHEL 7 and later?
+a) chkconfig
+b) systemctl
+c) service
+d) init
+Answer: b) systemctl
+
+What is the main configuration file for the network in CentOS/RHEL?
+a) /etc/sysconfig/network-scripts/ifcfg-*
+b) /etc/hosts
+c) /etc/resolv.conf
+d) /etc/network/interfaces
+Answer: a) /etc/sysconfig/network-scripts/ifcfg-*
+
+Which command shows the current IP address of your machine?
+a) ip addr
+b) ifconfig
+c) netstat
+d) hostname
+Answer: a) ip addr
+
+How can you restart the network service on CentOS/RHEL 8?
+a) systemctl restart network
+b) service network restart
+c) systemctl restart NetworkManager
+d) networkctl restart
+Answer: c) systemctl restart NetworkManager
+
+Set 8: Essential System Administration Tools
+Which command is used to check the disk usage of a directory?
+a) du
+b) df
+c) lsblk
+d) blkid
+Answer: a) du
+
+What is the command to monitor real-time system processes?
+a) top
+b) ps
+c) kill
+d) htop
+Answer: a) top
+
+How can you list all running processes on a system?
+a) ps -ef
+b) top
+c) htop
+d) free
+Answer: a) ps -ef
+
+Which tool provides a dynamic, real-time view of running processes?
+a) top
+b) vmstat
+c) sar
+d) uptime
+Answer: a) top
+
+Set 9: Network Clients
+Which of the following commands is used to check network connectivity by sending ICMP requests?
+a) ping
+b) netstat
+c) traceroute
+d) telnet
+Answer: a) ping
+
+How can you resolve a domain name to an IP address?
+a) nslookup
+b) ping
+c) traceroute
+d) wget
+Answer: a) nslookup
+
+Which command is used to transfer files via FTP?
+a) ftp
+b) scp
+c) rsync
+d) wget
+Answer: a) ftp
+
+Which file contains the list of DNS servers on a Linux system?
+a) /etc/resolv.conf
+b) /etc/hosts
+c) /etc/hostname
+d) /etc/network/interfaces
+Answer: a) /etc/resolv.conf
+
+Set 10: Network Configuration
+Which command is used to display active network connections?
+a) netstat
+b) iptables
+c) ip addr
+d) dig
+Answer: a) netstat
+
+How can you bring up a network interface in RHEL/CentOS?
+a) ifup
+b) ifconfig
+c) ip addr
+d) systemctl start network
+Answer: a) ifup
+
+What is the purpose of /etc/hosts?
+a) Maps IP addresses to hostnames
+b) Resolves domain names
+c) Stores network interface configurations
+d) Configures the firewall
+Answer: a) Maps IP addresses to hostnames
+
+Which command can be used to trace the route packets take to a destination?
+a) traceroute
+b) ping
+c) netstat
+d) nslookup
+Answer: a) traceroute
