@@ -1,0 +1,415 @@
+Open-source
+	- free to download
+	- free to share
+	- edit/change the source code
+	- linux
+	
+freeware
+	- free to download
+	- free to share
+	- cannot change the source code
+	- UNIX
+	
+File system Hierarchy Standard (FHS)
+----------------------------------------
+/bin	-	contains binaries of regular user commands
+/sbin	-	super binary, contains binaries of ROOT user commands
+/boot	-	contains all the boot releated files and directories (min 350MB)
+/dev	-	contains all the device releated files
+			- /dev/sda
+			- /dev/sdb
+			- /dev/sr0
+/etc	-	it contains all the configuration files and directories
+/home	-	contains all the user's home directories
+			hulk	->	/home/hulk
+			joker	->	/home/joker
+/root	-	its the home directory for ROOT user.
+/tmp	-	temporary directory
+/usr	-	users installed applications
+/run	-	contains all the running applications, processes and services
+			- /run/media
+/var	-	variable length files, contains all the LOG files in it.
+/lib	-	library for developers (32bit)
+/libx64	-	library for developers (64bit)
+/mnt	-	mount point for the devices
+			- /mnt/abc
+/proc	-	all the running processes are listed here.
+
+to list the current runlevel
+# systemctl get-default 
+
+to change the runlevel from GUI to CLI
+# systemctl set-default multi-user.target 
+
+reboot the machine
+# init 6
+
+to change the runlevel from CLI to GUI
+# systemctl set-default graphical.target   
+
+reboot the machine
+# init 6
+File systems
+-------------
+	- its the way to store, retrive and organize the data on the HDD.
+	- various OSs works with various filesystems
+		- Windows
+			- File Allocation Table (FAT/FAT16)
+			- FAT32
+			- NTFS (New Technology File System) --> default FS for windows
+			- ReFS (Resilient File System)
+		- Linux
+			- EXT
+			- EXT2
+			- EXT3
+			- EXT4
+			- XFS	--> default file system for almost all new Linux
+			- BTRFS (Better FS)
+
+Partitioning file systems
+----------------------------
+	- fdisk utility
+		- create, modify, delete, change the file system type for any partition.
+	- mount the partition
+		1. temporary mount
+			- it will be automatically removed after reboot.
+			- command to mount the partition: 
+				# mount   <what-to-mount>      <where-to-mount>
+				# mount   /dev/sr0      /dvd0
+			- command to remove /unmount the partition: 
+				# umount   <location of mount point/directory>
+				# umount   /dvd
+		2. permanent mount
+			- it will be available even after reboot.
+			- file: /etc/fstab (linux OS)
+			- file: /etc/vfstab (UNIX OS)
+			
+Logical Volume Manager (LVM)
+-----------------------------
+	- LVM allow you to merge multiple disks together with similar/various sizes.
+	- LVM will logically club disks together to form a single disk.
+	
+Steps to create LVM:
+---------------------
+	- add new disks (of same or different sizes) --> lsblk 
+	- create partitions of all the disks	--> fdisk 
+		# fdisk  /dev/sdb
+		# fdisk  /dev/sdc
+	- create physical volume (PV)			--> pvcreate
+		# pvcreate  /dev/sd[b-c]1			//OR
+		# pvcreate  /dev/sdb1 /dev/sdc1		
+	- create volume group (VG)				--> vgcreate
+		# vgcreate   myvg   /dev/sdb1   /dev/sdc1
+	- create logical volume (LV)			--> lvcreate
+		# lvcreate   -n  mylv   -l  100%FREE   myvg
+	- create file system					--> XFS or EXT4 or EXT3
+		# mkfs.xfs   /dev/myvg/mylv
+	- create a mount point					--> /lvm
+	- mount the partition
+		- temporary -> mount
+			# mount   <what-to-mount>    <where-to-mount>
+		- permanent -> /etc/fstab
+			1. <what-to-mount>	--> /dev/myvg/mylv
+			2. <where-to-mount>	--> /lvm
+			3. file system type	--> xfs
+			4. options	--> defaults
+			5. backup operation	--> 0
+				(0 = no backup, 1 = backup will be taken)
+			6. file system error check 	--> 0
+				(0=no file system check, 1=root file system, 2=other FS)
+	- verify
+	
+task - how to remove LVM?
+-----------------------------
+	- unmount the partition, if already mounted
+	- remove the LVM directory
+	- remove the logical volume (lv)
+	- remove the volume group (vg)
+	- remove the physical volume (lv)
+	- remove the partitions
+to verify:
+	# lsblk
+		--> sdb & sdc, 
+			no sdb1 or sdc1
+			
+			
+Package Manager
+-----------------
+- RPM
+	- Redhat Package Manager
+	- its the default package manager for Redhat and CentOS OS
+	- it helps in installing the offline packages
+	- can perform:
+		- install
+			# rpm     -ivh     <full name of the package>.rpm
+				i = install (mandatory)
+				v = verbose (optional)
+				h = hashing (optional)  
+		- update
+			# rpm    -Uvh   <full name of the package>.rpm
+				U = Update (in caps)
+		- query 
+			# rpm   -q   <package-name>  //this lists a package
+			# rpm   -qa		//this lists all installed packages
+		- remove
+			# rpm   -e  <package-name>
+				e = erase
+Issues with RPM
+	1. full name of the package
+	2. specify the full path of the package
+	3. dependencies
+
+
+- YUM
+	- Yellowdog Updater Modifier
+	- it can download and install packages for bothe online and offline mode.
+	- it resolves the drawbacks of RPM
+	- it can perform:
+		- install
+			# yum install <package-name>
+		- update
+			# yum update <package-name>
+			# yum update 
+		- query/information
+			# yum info <package-name>
+		- remove
+			# yum remove <package-name>
+			
+			
+install the following:
+	- httpd
+	- vsftpd
+	- dovecot
+	- postfix
+	- telnet
+
+Networking:
+------------
+- setting up the IP address
+	- static IP address
+		- manually write 
+			- IP address
+			- Subnet mask
+			- default gateway
+			- dns address
+	- dynamic IP address
+		- DHCP (Dynamic Host Configuration Protocol) server
+		- DHCP assigns the IP address automatically to the client machines.
+		- DHCP uses DORA process to allocate the IP
+			D = Discover
+			O = Offer
+			R = Request
+			A = Acknowledgement
+	- APIPA
+		- Automatic Private IP Addressing
+		
+commands
+	# ifconfig	(similar to ipconfig in windows)
+	# ip address
+	# nmcli	// Network Manager Command Line Interface (old)
+	# nmtui	// Network Manager Text User Interface (new)
+	# GUI	// only work for graphical OSs
+	# file	// /etc/sysconfig/network-scripts/ifcfg-eth0
+	
+Find command
+	# find  <where-to-find>   <how-to-find>   <file-name>
+	
+Locate command 
+	- faster than Find command
+	- it maintains a database for all files and directories
+	- on time-to-time basis, we need to update the database
+		# updatedb
+	- syntax:
+		# location <file-name>
+		
+
+Service management
+--------------------
+	# systemctl  <action>   <service-name>
+	
+action:
+	- start
+	- stop
+	- enable
+	- disable
+	- restart
+	- is-active
+	
+service-name:
+	- network
+	- sshd
+	- ntpd
+	- vsftpd
+	- httpd
+	- NetworkManager
+	- squid
+	- named
+
+Standard partitioning
+-----------------------------------
+- add disks
+- create partition -> fdisk
+- create file system --> mkfs.xfs
+- create mount point -> mkdir
+- mount -> mount or /etc/fstab
+- verify -> lsblk
+
+Remote connection
+------------------
+windows 
+	- RDP (3389) --> GUI
+	- PowerShell (5985 / 5986) --> CLI
+
+linux
+	- telnet (23)
+		- this is NOT a secure way to connect to a remote server.
+	- SSH (22)
+		- Secure SHell
+		- this is the recommended way to connect to a remote system.
+		- ex:
+			# ssh   username@IPAddressOfRemoteSystem
+			
+Firewall
+--------
+- iptables		--> IPv4 traffic
+- ip6tables		--> IPv6 traffic
+- firewall-cmd	--> RHEL/CentOS 7 onwards
+
+File sharing:
+-------------
+	- FTP server
+		- anonymous (without username & password) --> web browser
+			- default path: "/var/ftp/pub"
+		- secure (with username & password)
+	- NFS server
+		- for similar operating systems
+			- Linux to Linux
+			- Windows to Windows
+	- Samba server
+		- for different operating systems
+			- Linux to Windows
+			- Windows to Linux
+			- Linux to Linux
+			
+Requirements for any/all server configuration:
+------------------------------------------------
+	- Package				: 
+	- Configuration file 	: 
+	- Port number 			: 
+	- Service name			: 
+	
+FTP server
+############
+- File Transfer Protocol
+- to configure FTP:
+	- Package				: ftp, vsftpd
+	- Configuration file 	: /etc/vsftpd/vsftpd.conf
+	- Port number 			: 21
+	- Service name			: vsftpd
+	
+to access the FTP using anonymous method:
+	- install the package
+	- enable the server
+	- start the server
+	- access the FTP using web browser
+	
+NFS server
+############
+- Network File Sharing
+- to configure NFS:
+	- Package				: nfs-utils, rpcbind
+	- Configuration file 	: /etc/exports
+	- Port number 			: 2049/tcp
+	- Service name			: nfs-server, rpcbind
+	
+- on server machine
+	- install the package
+	- configure the file
+	- enable/start/restart and check the status of the service
+	
+- on client machine
+	- install the package
+	- enable/start/restart and check the status of the service
+	
+/etc/exports
+	col1: <what to share>	--> directory name
+	col2: to whom and how to share
+	
+	syntax:
+		<directory-name>      IPaddr(how to share)
+		
+Samba server:
+--------------
+- to transfer files between different operating system (cross-platform)
+	- Package				: samba, samba-utils, cifs-utils
+	- Configuration file 	: /etc/samba/smb.conf
+	- Port number 			: 139 & 445
+	- Service name			: smb
+	
+Steps:
+	- disable firewall
+	- disable selinux
+	- install packages
+	- create a group
+	- add new smb user and add this user to the group
+	- create a password for this user
+	- create a new samba directory
+	- change the permission of the smb directory using chmod and chown command
+	- edit the configuration file - /etc/samba/smb.conf
+		[samba]
+        comment = This is samba server for Windows
+        browseable = Yes
+        path = /samba
+        valid users = @smbgrp
+        writable = Yes
+	- run "testparm" command
+	- add the user to the smb database using "smbpasswd" command
+	- enable, start check the status of the samba server (smb)
+		# systemctl enable smb
+		# systemctl start smb
+		# systemctl status smb
+	
+	
+Apache server
+---------------
+- aka web server
+- it is used for creating and hosting websites on linux
+- NGINX is the alternative of apache server
+- 	- Package				: httpd
+	- Configuration file 	: /etc/httpd/conf/httpd.conf
+	- Port number 			: 80 (HTTP), 443(HTTPS)
+	- Service name			: httpd
+steps:
+-------
+Just activating/accessing apache server
+	- install HTTPD package
+	- enable, start & check the status of the httpd service
+	
+creating your own web page and access it using IP address:
+	- go to /var/www/html and create a file index.html
+	- add the web page content	
+	- restart and check the status of the apache service
+	- go to web browser, and access the apache server IP address.
+	
+creating a new website and access it using the name 
+	- go to /var/www/ and create a new directory (www.abc.com)
+	- copy the index file from html to abc
+		# cp /var/www/html/index.html   /var/www/www.abc.com/
+	- now, edit the configuration file
+		# vim /etc/httpd/conf/httpd.conf
+			and add the data 
+				<VirtualHost 192.168.88.131:80>
+				DocumentRoot /var/www/www.abc.com
+				ServerName www.abc.com
+				</VirtualHost>
+	- add the entry in /etc/hosts file
+		<apache server IP>   www.abc.com
+	- restart and check the apache service
+
+Squid proxy server
+------------------
+	- its a proxy server
+	- it has 2 major jobs:
+		1. to monitor the whole network
+		2. it can block unwanted websites or
+			- it can allow only limited websites.
